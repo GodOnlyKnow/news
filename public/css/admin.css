@@ -1,0 +1,123 @@
+.list-group > .list-group-item {
+  cursor: pointer;
+}
+.sec-list-item{
+  padding:0px 0px;
+}
+.list-group > .sec-list-item > .row > .col-md-8{
+  padding:10px 15px 10px 15px;
+}
+.list-group > .sec-list-item > .row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.list-group > .list-group-item > .row > .col-md-8:hover {
+  background:rgba(88, 161, 245, 0.72);
+}
+
+.list-group > .sec-list-item > .row > .col-md-2 {
+  line-height: 40px;
+  font-size:1.5em;
+}
+
+.list-group > .sec-list-item > .row > .col-md-2:hover {
+  background:red;
+  color:#fff;
+}
+.list-group > .sec-list-item > .row > .acticess {
+  color:blue;
+}
+.list-group-item > .re-icon {
+  float:right;
+  color:blue;
+  -webkit-animation: re-icon-animation 5s linear infinite;
+  -o-animation: re-icon-animation 5s linear infinite;
+  -moz-animation: re-icon-animation 5s linear infinite;
+  -ms-animation: re-icon-animation 5s linear infinite;
+  animation: re-icon-animation 5s linear infinite;
+}
+
+.types,.news,.opts{
+  padding:0px;
+}
+
+.navbar {
+  margin-bottom:0px;
+}
+
+.list-group-item:first-child {
+   border-top-right-radius: 0px;
+   border-top-left-radius: 0px;
+}
+.list-group-item:last-child {
+  margin-bottom: 0;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+@-webkit-keyframes re-icon-animation {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+}
+@-o-keyframes re-icon-animation {
+  from { -o-transform: rotate(0deg); }
+  to { -o-transform: rotate(360deg); }
+}
+@-ms-keyframes re-icon-animation {
+  from { -ms-transform: rotate(0deg); }
+  to { -ms-transform: rotate(360deg); }
+}
+@-moz-keyframes re-icon-animation {
+  from { -moz-transform: rotate(0deg); }
+  to { -moz-transform: rotate(360deg); }
+}
+@keyframes re-icon-animation {
+  transfrom { transform: rotate(0deg);  }
+  to { transform: rotate(360deg); }
+}
+
+.del-icon:hover {
+  background:#0066FF;
+  color:#FFF;
+}
+
+.content {
+  position:fixed;
+  width:800px;
+  height:600px;
+  overflow: auto;
+  top:30px;
+  right:10px;
+  z-index: 100;
+  padding:30px;
+  background:#33FFCC;
+  display: none;
+}
+
+.content-close,#content-color {
+  width:40px;
+  height:40px;
+  position: absolute;
+  line-height: 40px;
+  color:#CC3333;
+  font-size: 30px;
+  right:10px;
+  top:10px;
+  cursor:pointer;
+}
+
+#content-color {
+  right:60px;
+}
+
+.content-close > i:hover {
+  color:#CC66FF;
+}
+
+#content-color > i:hover {
+  color:#CC66FF;
+}
+
+.colorpicker {
+  z-index: 1000;
+}
