@@ -19,6 +19,7 @@ class ContentCommentController extends RestController {
 						->select(array(
 										'users.username as userName',
 										'users.img as userImg',
+										'users.rand_id as randId',
 										'content_comments.id as id',
 										'content_comments.body as body',
 										'content_comments.parised as parised',
@@ -30,6 +31,7 @@ class ContentCommentController extends RestController {
 				'id' => $cm->id,
 				'userName' => $cm->userName,
 				'userImg' => ($cm->userImg),
+				'randId' => $cm->randId,
 				'body' => $cm->body,
 				'replys' => ContentCommentReply::where('comment_id','=',$cm->id)->count(), 
 				'parised' => $cm->parised,
