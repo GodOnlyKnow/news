@@ -109,8 +109,8 @@ class UserCommentController extends RestController {
 				'userToId' => $user2->rand_id,
 				'userFrom' => $user1->username,
 				'userTo' => $user2->username,
-				'userFromImg' => $this->getImg($user1->img),
-				'userToImg' => $this->getImg($user2->img),
+				'userFromImg' => ($user1->img),
+				'userToImg' => ($user2->img),
 				'body' => $r->body,
 				'createdAt' => strtotime($r->created_at)
 			];
