@@ -33,6 +33,7 @@
 					<li><a href="{{ url('/admin') }}">新闻管理</a></li>
 					<li><a href="{{ url('/ads/index') }}">广告管理</a></li>
 					<li><a href="{{ url('/message/index') }}">消息中心</a></li>
+					<li><a href="{{ url('/comment/index') }}">侃吧管理</a></li>
 					<li><a href="{{ url('/app/index') }}">APP设置</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">

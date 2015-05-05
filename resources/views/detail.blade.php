@@ -54,7 +54,7 @@
     })
     console.log((new Date()).getTime());
     $.get("/api/comment/get",{ id:{{ $content->id }},pageSize:3 },function(res){
-      var data = res.data;
+      var data = res.data.result;
       console.log(res);
       if (data.length == 0) {
         cmt.html("暂无评论");

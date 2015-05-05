@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\API;
 
 use Request;
+use App\User;
 use App\UserComment;
 use App\UserCommentReply;
 use App\UserCommentGood;
@@ -97,9 +98,10 @@ class UserCommentController extends RestController {
 		$res = UserCommentReply::where('parent_id','=',$id)->get();
 		$out = array();
 		foreach ($res as $r) {
-			$user1 = User::where('rand_id','=',$res->user1_id)->first();
-			$user2 = User::where('rand_id','=',$res->user2_id)->first();
+			$user1 = User::where('rand_id','=',$r->user1_id)->first();
+			$user2 = User::where('rand_id','=',$r->user2_id)->first();
 			$out[] = [
+				'id' => $r->id,
 				'userFromId' => $user1->rand_id,
 				'userToId' => $user2->rand_id,
 				'userFrom' => $user1->username,

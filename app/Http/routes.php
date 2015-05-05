@@ -32,6 +32,7 @@ Route::controllers([
 	'ads' => 'AdsController',
 	'message' => 'MessageController',
 	'app' => 'AppController',
+	'comment' => 'CommentController',
 ],[
 	'middleware' => 'csrf'
 ]);

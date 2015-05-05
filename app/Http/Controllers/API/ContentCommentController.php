@@ -3,6 +3,7 @@
 use App\ContentComment;
 use App\ContentCommentReply;
 use App\ContentCommentGood;
+use App\User;
 use Request;
 	
 class ContentCommentController extends RestController {
@@ -64,8 +65,8 @@ class ContentCommentController extends RestController {
 		$res = ContentCommentReply::where('comment_id','=',$id)->get();
 		$out = array();
 		foreach ($res as $r) { 
-			$user1 = User::where('rand_id','=',$res->user1_id)->first();
-			$user2 = User::where('rand_id','=',$res->user2_id)->first();
+			$user1 = User::where('rand_id','=',$r->user1_id)->first();
+			$user2 = User::where('rand_id','=',$r->user2_id)->first();
 			$out[] = [
 				'id' => $r->id,
 				'userFromId' => $user1->rand_id,

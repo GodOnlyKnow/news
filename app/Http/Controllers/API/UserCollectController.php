@@ -41,6 +41,8 @@ class UserCollectController extends RestController {
 		$id = Request::input('randId');
 		$parentId = Request::input('parentId');
 		$type = Request::input('type');
+		if (UserCollect::where('user_id','=',$id)->where('parent_id','=',$parentId)->where('type','=',$type)->count() > 0)
+			return $this->pack("已经收藏过了~~",0);
 		$col = new UserCollect;
 		$col->user_id = $id;
 		$col->parent_id = $parentId;

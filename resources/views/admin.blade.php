@@ -211,7 +211,7 @@
 		det.css('display','block');
 		$('.content-back').css('display','none');
 		$.post("{{ url('/api/comment/get') }}",{ id:i,pageSize:10,page:dPage },function(res){
-			var data = res.data;
+			var data = res.data.result;
 			for (var d in data) {
 				var str = '<tr><td>' + 
 						data[d].userName + '</td><td>' +
