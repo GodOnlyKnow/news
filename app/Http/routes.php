@@ -21,6 +21,7 @@ Route::controllers([
 	'api/usercollect' => 'API\UserCollectController',
 	'api/usercomment' => 'API\UserCommentController',
 	'api/comment' => 'API\ContentCommentController',
+	'api/feedback' => 'API\FeedbackController',
 	'api' => 'ApiController',
 ]);
 
@@ -33,6 +34,7 @@ Route::controllers([
 	'message' => 'MessageController',
 	'app' => 'AppController',
 	'comment' => 'CommentController',
+	'feedback' => 'FeedbackController',
 ],[
 	'middleware' => 'csrf'
 ]);

@@ -82,7 +82,10 @@ class ContentCommentController extends RestController {
 			];
 		}
 
-		return $this->pack("获取成功",1,$out);
+		return $this->pack("获取成功",1,[
+			'result' => $out,
+			'last' => 1
+		]);
 	}
 	
 	public function anyDelete()

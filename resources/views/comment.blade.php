@@ -109,7 +109,7 @@
 		$('.detail').css('display','block');
 		tBody.html($('<p><span class="re-icon"><i class="glyphicon glyphicon-refresh"></i></span>&nbsp;&nbsp;加载中...</p>'));
 		$.post("{{ url('/api/usercomment/detail') }}",{ id:i },function(res){
-			var data = res.data;
+			var data = res.data.result;
 			for (var d in data) {
 				var str = '<tr><td>' + 
 						data[d].userFrom + '@' + data[d].userTo + '</td><td>' +

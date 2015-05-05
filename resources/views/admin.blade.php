@@ -234,7 +234,7 @@
 		dBody.html($('<p><span class="re-icon"><i class="glyphicon glyphicon-refresh"></i></span>&nbsp;&nbsp;加载中...</p>'));
 		$('.content-back').css('display','block');
 		$.post("{{ url('/api/comment/detail') }}",{ id:i },function(res){
-			var data = res.data;
+			var data = res.data.result;
 			for (var d in data) {
 				var str = '<tr><td>' + 
 						data[d].userFrom + '@' + data[d].userTo + '</td><td>' +
