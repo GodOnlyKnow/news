@@ -38,6 +38,32 @@
 
 			</form>
 		</div> -->
+		<div class="detail">
+			<div class="content-back">
+				<button onclick="back()" class="btn btn-primary">
+					<i class="glyphicon glyphicon-chevron-left"></i>
+				</button>
+			</div>
+			<div class="content-close">
+				<a href="javascript:$('.detail').css('display','none');">
+					<i class="glyphicon glyphicon-remove"></i>
+				</a>
+			</div>
+			<br>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>用户名</th>
+						<th>内容</th>
+						<th>发布时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody class="detail-body">
+					
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<div class="modal fade" id="alert">
   <div class="modal-dialog">
@@ -72,9 +98,11 @@
   <script src="{{ asset('froala/js/plugins/video.min.js') }}"></script>
   <script src="{{ asset('froala/js/langs/zh_cn.js') }}"></script>
 <script charset="utf-8">
-		var type = 1,page = 1,pageCount = 1;
+		var type = 1,page = 1,pageCount = 1,dPage = 1,dCount = 1,cId = 1;
+		var dBody = $('.detail-body'),
+			det = $('.detail');
 		$(function(){
-			$('.content').css({
+			$('.content,.detail').css({
 				'width':$(window).width() * 0.8 + "px",
 				'height':$(window).height() * 0.8 + "px",
 				'right':($(window).width() * 0.1) + 'px'
@@ -118,7 +146,7 @@
 										dat[d].visited + '</td><td>' +
 										dat[d].shared + '</td><td>' +
 										dat[d].parised + '</td><td>' +
-										'<button class="btn btn-success" onclick="getContent('+dat[d].id+')"><i class="glyphicon glyphicon-edit"></i></button><button onclick="delContent('+ dat[d].id +')" class="btn btn-small btn-danger"><i class="glyphicon glyphicon-remove-sign"></i></button><button onclick="editContent('+dat[d].id+')" class="btn btn-primary"><i class="glyphicon glyphicon-bookmark"></i></button>'
+										'<button class="btn btn-success" onclick="getContent('+dat[d].id+')"><i class="glyphicon glyphicon-edit"></i></button><button onclick="delContent('+ dat[d].id +')" class="btn btn-small btn-danger"><i class="glyphicon glyphicon-remove-sign"></i></button><button onclick="editContent('+dat[d].id+')" class="btn btn-primary"><i class="glyphicon glyphicon-bookmark"></i></button><button onclick="detail('+dat[d].id+')" class="btn btn-info"><i class="glyphicon glyphicon-th-list"></i></button>';
 				}
 			$.post("{{ url('admin/news') }}",{ typeId:$(t).data('id'),"page":page,_token:"{{ csrf_token() }}" },function(ds){
 				var data = ds.data;
@@ -133,7 +161,7 @@
 										data[d].visited + '</td><td>' +
 										data[d].shared + '</td><td>' +
 										data[d].parised + '</td><td>' +
-										'<button class="btn btn-success" onclick="getContent('+data[d].id+')"><i class="glyphicon glyphicon-edit"></i></button><button onclick="delContent(' +data[d].id +')" class="btn btn-small btn-danger"><i class="glyphicon glyphicon-remove-sign"></i></button><button onclick="editContent('+data[d].id+')" class="btn btn-default"><i class="glyphicon glyphicon-bookmark"></i></button>'
+										'<button class="btn btn-success" onclick="getContent('+data[d].id+')"><i class="glyphicon glyphicon-edit"></i></button><button onclick="delContent(' +data[d].id +')" class="btn btn-small btn-danger"><i class="glyphicon glyphicon-remove-sign"></i></button><button onclick="editContent('+data[d].id+')" class="btn btn-default"><i class="glyphicon glyphicon-bookmark"></i></button><button onclick="detail('+data[d].id+')" class="btn btn-info"><i class="glyphicon glyphicon-th-list"></i></button>';
 				}
 				str += '</tbody></table></div></div><div class="row"><div><ul class="pager"><li><a href="javascript:prePage();">上一页</a></li><li>&nbsp;第' + ds.current_page +'页，共'+pageCount+'页&nbsp;</li><li><a href="javascript:nexPage();">下一页</a></li></ul></div></div>';
 				$('.news').html(str);
@@ -163,14 +191,68 @@
 			$(t).html(data);
 		});
 	}
-
+	
+	function back()
+	{
+		detail(cId);
+	}
+	
 	function delContent(id)
 	{
 		$.post("{{ url('admin/delcontent') }}",{ _token:"{{ csrf_token() }}","id":id },function(data){
 			getNews($('.types > .list-group > .active'));
 		});
 	}
-
+	
+	function detail(i)
+	{
+		cId = i;
+		dBody.html($('<p><span class="re-icon"><i class="glyphicon glyphicon-refresh"></i></span>&nbsp;&nbsp;加载中...</p>'));
+		det.css('display','block');
+		$('.content-back').css('display','none');
+		$.post("{{ url('/api/comment/get') }}",{ id:i,pageSize:10,page:dPage },function(res){
+			var data = res.data;
+			for (var d in data) {
+				var str = '<tr><td>' + 
+						data[d].userName + '</td><td>' +
+						data[d].body + '</td><td>' +
+						getLocalTime(data[d].createdAt) + '</td><td><button class="btn btn-danger" onclick="del(this)" data-href="/api/comment/delete?id=' +
+						data[d].id + '&type=0"><i class="glyphicon glyphicon-remove-sign"></i></button><button class="btn btn-success" onclick="moreDetail(' +
+						data[d].id +')"><i class="glyphicon glyphicon-th-list"></i></button>'
+				dBody.append($(str));
+			}
+			dBody.children('p').remove();
+		});
+	}
+	
+	function getLocalTime(nS) {     
+       return (new Date(parseInt(nS) * 1000)).Format("yyyy-MM-dd hh:mm:ss");      
+  	}
+	  
+	function moreDetail(i)
+	{
+		dBody.html($('<p><span class="re-icon"><i class="glyphicon glyphicon-refresh"></i></span>&nbsp;&nbsp;加载中...</p>'));
+		$('.content-back').css('display','block');
+		$.post("{{ url('/api/comment/detail') }}",{ id:i },function(res){
+			var data = res.data;
+			for (var d in data) {
+				var str = '<tr><td>' + 
+						data[d].userFrom + '@' + data[d].userTo + '</td><td>' +
+						data[d].body + '</td><td>' +
+						getLocalTime(data[d].createdAt) + '</td><td><button class="btn btn-danger" onclick="del(this)" data-href="/api/comment/delete?id=' +
+						data[d].id + '&type=1"><i class="glyphicon glyphicon-remove-sign"></i></button>';
+				dBody.append($(str));
+			}
+			dBody.children('p').remove();
+		});
+	}
+	
+	function del(t)
+	{
+		$.get($(t).data('href'));
+		$(t).parent().parent().remove();
+	}
+	
 	function prePage()
 	{
 		page--;

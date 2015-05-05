@@ -89,7 +89,7 @@
 		        <div class="form-group">
 				<label class="control-label col-md-2">广告名称</label>
 				<div class="col-md-8">
-					<input class="form-control" type="text" name="name" id="name" value="{{ $ad->name }}" />
+					<input class="form-control" type="text" name="name" id="name" value="{{ $ad->link }}" />
 				</div>
 			</div>
 			<div class="form-group">

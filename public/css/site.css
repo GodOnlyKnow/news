@@ -246,3 +246,11 @@ animation: pacman-balls 1s .99s infinite linear;
   background:rgba(0,0,0,0.8);
   padding-bottom: 0px;
 }
+
+.lead-div {
+  border-left: 5px red solid;
+}
+
+.lead-div p {
+  margin-left: 10px;
+}

@@ -69,7 +69,7 @@
         require(
             [
                 'echarts',
-                'echarts/chart/line',   // 按需加载所需图表，如需动态类型切换功能，别忘了同时加载相应图表
+                'echarts/chart/line',   // 按需加载所需图表
                 'echarts/chart/bar'
             ],
             function (ec) {

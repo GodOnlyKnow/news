@@ -155,7 +155,7 @@
 				@endif
 			</div>	
 			<div class="form-group">
-				@if (($ad->android_time != 0) || $ad->ios_time != 0)
+				@if ($ad->android_time != 0 || $ad->ios_time != 0)
 				<div class="col-md-offset-2 col-md-2">
 					<a class="btn btn-success btn-block" href="{{ url('/message/stop') }}?id={{ $ad->id }}&fn=2">停止推送</a>
 				</div>

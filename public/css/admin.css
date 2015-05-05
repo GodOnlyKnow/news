@@ -29,6 +29,9 @@
 }
 .list-group-item > .re-icon {
   float:right;
+}
+
+.re-icon {
   color:blue;
   -webkit-animation: re-icon-animation 5s linear infinite;
   -o-animation: re-icon-animation 5s linear infinite;
@@ -81,7 +84,7 @@
   color:#FFF;
 }
 
-.content {
+.content,.detail {
   position:fixed;
   width:800px;
   height:600px;
@@ -94,7 +97,12 @@
   display: none;
 }
 
-.content-close,#content-color {
+.detail {
+  background:#fff;
+  border: 1px #0066FF solid;
+}
+
+.content-close,#content-color,.content-back {
   width:40px;
   height:40px;
   position: absolute;
@@ -108,6 +116,11 @@
 
 #content-color {
   right:60px;
+}
+
+.content-back {
+  left:30px;
+  display: none;
 }
 
 .content-close > i:hover {
