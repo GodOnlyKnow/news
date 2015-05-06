@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers\API;
 
 use App\UserCollect;
+use App\Content;
+use App\UserComment;
 use Request;
 
 class UserCollectController extends RestController {
@@ -9,7 +11,7 @@ class UserCollectController extends RestController {
 	{
 		$id = Request::input('randId');
 		$pageSize = Request::input('pageSize');
-		$cols = UserCollect::where('rand_id','=',$id)->paginate($pageSize);
+		$cols = UserCollect::where('user_id','=',$id)->paginate($pageSize);
 		$out = array();
 		foreach ($cols as $col) {
 			if ($col->type == 0) {
