@@ -2,6 +2,12 @@
 
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
+use App\User;
+use App\UserGroup;
+use App\UserComment;
+use App\UserCommentReply;
+use App\ContentComment;
+use App\ContentCommentReply;
 
 abstract class RestController extends BaseController {
 
@@ -45,28 +51,28 @@ abstract class RestController extends BaseController {
 	
 	protected function addPoints($id,$points)
 	{
-		$user = App\User::where('rand_id','=',$id)->first();
+		$user = User::where('rand_id','=',$id)->first();
 		$user->points += $points;
-		$group = App\UserGroup::where('points','<=',$user->points)->orderBy('points','desc')->first();
+		$group = UserGroup::where('points','<=',$user->points)->orderBy('points','desc')->first();
 		$user->group_id = $group->id;
 		$user->save();
 	}
 	
 	protected function checkCount($id)
 	{
-		$user = App\User::where('rand_id','=',$id)->first();
-		$points = App\UserGroup::where('id','=',$user->group_id)->first()->points;
+		$user = User::where('rand_id','=',$id)->first();
+		$points = UserGroup::where('id','=',$user->group_id)->first()->points;
 		$now = date("Y-m-d",strtotime('now'));
-		$cnt = App\UserComment::where('user_id','=',$id)->where('created_at','like','%' . $now . '%')->count();
+		$cnt = UserComment::where('user_id','=',$id)->where('created_at','like','%' . $now . '%')->count();
 		if ($cnt >= $points)
 			return false;
-		$cnt +=  App\UserCommentReply::where('user1_id','=',$id)->where('created_at','like','%' . $now . '%')->count();
+		$cnt += UserCommentReply::where('user1_id','=',$id)->where('created_at','like','%' . $now . '%')->count();
 		if ($cnt >= $points)
 			return false;
-		$cnt += App\ContentComment::where('user_id','=',$id)->where('created_at','like','%' . $now . '%')->count();
+		$cnt += ContentComment::where('user_id','=',$id)->where('created_at','like','%' . $now . '%')->count();
 		if ($cnt >= $points)
 			return false;
-		$cnt += App\ContentCommentReply::where('user1_id','=',$id)->where('created_at','like','%' . $now . '%')->count();
+		$cnt += ContentCommentReply::where('user1_id','=',$id)->where('created_at','like','%' . $now . '%')->count();
 		if ($cnt >= $points)
 			return false;
 		return true;
