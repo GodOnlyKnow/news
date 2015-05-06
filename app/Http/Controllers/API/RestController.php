@@ -31,7 +31,7 @@ abstract class RestController extends BaseController {
 
 	protected function saveImg($randId,$code)
 	{
-		if ($code == null || strlen($code) < 1) return '';
+		if ($code == null || strlen($code) < 1) return null;
 		
 		$split = explode(',',$code);
 		$data = $split[1];

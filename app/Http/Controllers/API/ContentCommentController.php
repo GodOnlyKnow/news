@@ -55,8 +55,8 @@ class ContentCommentController extends RestController {
 		$contentId = Request::input('contentId');
 		$com = new ContentComment;
 		$com->user_id = $id;
-		$com->body = Reqeust::input('body');
-		$com->img = $this->saveImg($id,Request::input('code'));
+		$com->body = Request::input('body');
+		//$com->img = $this->saveImg($id,Request::input('code'));
 		$com->parised = 0;
 		$com->shared = 0;
 		$com->content_id = $contentId;
