@@ -9,7 +9,7 @@ class FeedbackController extends RestController {
 	{
 		$feed = new Feedback;
 		$feed->body = Request::input('body');
-		$feed->img = $this->saveImg(Request::input('code'));
+		$feed->img = $this->saveImg(0000,Request::input('code'));
 		$feed->concat = Request::input('con');
 		$feed->save();
 		
