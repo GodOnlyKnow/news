@@ -254,3 +254,7 @@ animation: pacman-balls 1s .99s infinite linear;
 .lead-div p {
   margin-left: 10px;
 }
+
+.head-img {
+  min-width:70px;
+}

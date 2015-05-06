@@ -60,7 +60,7 @@
         cmt.html("<div class='panel panel-default'><div class='panel-body text-center'><a href='men:{{ $content->id }}'>没人评论，快来抢沙发吧</a></div></div>");
       } else {
         for (var d in data) {
-          cmt.append($("<div class='row'><div class='col-xs-3'><img class='img-responsive img-circle' src='" +
+          cmt.append($("<div class='row'><div class='col-xs-3'><img class='img-responsive img-circle head-img' src='" +
                         data[d].userImg + "'></div><div class='col-xs-9'><h4>" +
                         data[d].userName + "</h4><h5>" + 
                         data[d].body + "</h5><br><h6>" +
