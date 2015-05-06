@@ -4,6 +4,7 @@ use App\ContentComment;
 use App\ContentCommentReply;
 use App\ContentCommentGood;
 use App\User;
+use App\Content;
 use Request;
 	
 class ContentCommentController extends RestController {
@@ -41,7 +42,8 @@ class ContentCommentController extends RestController {
 		
 		return $this->pack("获取成功",1,[
 			'result' => $out,
-			'last' => $cms->lastPage()
+			'last' => $cms->lastPage(),
+			'goods' => Content::where('id','=',$id)->first()->parised
 		]);
 	}
 	
@@ -129,7 +131,7 @@ class ContentCommentController extends RestController {
 		if (ContentCommentGood::where('user_id','=',$userId)->where('parent_id','=',$id)->count() > 0)
 			return $this->pack("已经赞过了",0);
 			
-		$com = ContentComment::where('id','=',Request::input('id'))->first();
+		$com = Content::where('id','=',Request::input('id'))->first();
 		$com->parised++;
 		$com->save();
 		
@@ -143,7 +145,7 @@ class ContentCommentController extends RestController {
 
 	public function anyShare()
 	{
-		$com = ContentComment::where('id','=',Request::input('id'))->first();
+		$com = Content::where('id','=',Request::input('id'))->first();
 		$com->shared++;
 		$com->save();
 
