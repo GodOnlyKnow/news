@@ -12,7 +12,9 @@ class AdsController extends Controller {
 
 	public function getIndex()
 	{
-		return view('ads')->withAds(Ad::orderBy('created_at','desc')->get());
+		$ads = Ad::orderBy('created_at','desc')->where('type','=',0)->get();
+		$dds = Ad::orderBy('created_at','desc')->where('type','=',1)->get();
+		return view('ads')->withAds($ads)->withDds($dds);
 	}
 
 	public function postCreate()
@@ -30,6 +32,7 @@ class AdsController extends Controller {
 		if (!empty($fileName))
 			$tmp->img = 'imgs/ads/' . $fileName;
 		$tmp->name = $name;
+		$tmp->type = Request::input('type');
 		$tmp->save();
 		return redirect('/ads/index');
 	}

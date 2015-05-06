@@ -23,6 +23,7 @@ Route::controllers([
 	'api/comment' => 'API\ContentCommentController',
 	'api/feedback' => 'API\FeedbackController',
 	'api/message' => 'API\MessageController',
+	'api/ads' => 'API\AdsController',
 	'api' => 'ApiController',
 ]);
 

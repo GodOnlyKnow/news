@@ -69,6 +69,8 @@ class UserCommentController extends RestController {
 	public function anyCreate() 
 	{
 		$id = Request::input('randId');
+		if (!$this->checkCount($id))
+			return $this->pack("已达到今日发布动态上限~~",0);
 		$com = new UserComment;
 		$com->user_id = $id;
 		$com->body = Request::input('body');
@@ -77,7 +79,9 @@ class UserCommentController extends RestController {
 		$com->shared = 0;
 		$com->is_top = 0;
 		$com->save();
-
+		
+		$this->addPoints($id,5);
+		
 		return $this->pack("发布成功");
 	}
 	
@@ -98,7 +102,7 @@ class UserCommentController extends RestController {
 	public function anyDetail()
 	{
 		$id = Request::input('id');
-		$res = UserCommentReply::where('parent_id','=',$id)->get();
+		$res = UserCommentReply::where('parent_id','=',$id)->orderBy('created_at','desc')->get();
 		$out = array();
 		foreach ($res as $r) {
 			$user1 = User::where('rand_id','=',$r->user1_id)->first();
@@ -124,13 +128,17 @@ class UserCommentController extends RestController {
 
 	public function anyReply()
 	{
-		$reply = new UserCommentReply; 
+		$reply = new UserCommentReply;
+		if (!$this->checkCount(Request::input('userFromId')))
+			return $this->pack("已达到今日评论上限~~",0);
 		$reply->body = Request::input('body');
 		$reply->user1_id = Request::input('userFromId');
 		$reply->user2_id = Request::input('userToId');
 		$reply->parent_id = Request::input('id');
 		$reply->save();
-
+		
+		$this->addPoints(Request::input('userFromId'),1);
+		
 		return $this->pack("回复成功");
 	}
 

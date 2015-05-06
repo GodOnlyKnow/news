@@ -48,6 +48,8 @@ class ContentCommentController extends RestController {
 	public function anyCreate() 
 	{
 		$id = Request::input('randId');
+		if (!$this->checkCount($id))
+			return $this->pack("已达到今日评论上限~~",0);
 		$contentId = Request::input('contentId');
 		$com = new ContentComment;
 		$com->user_id = $id;
@@ -57,14 +59,16 @@ class ContentCommentController extends RestController {
 		$com->shared = 0;
 		$com->content_id = $contentId;
 		$com->save();
-
+		
+		$this->addPoints($id,1);
+		
 		return $this->pack("发布成功");
 	}
 	
 	public function anyDetail()
 	{
 		$id = Request::input('id');
-		$res = ContentCommentReply::where('comment_id','=',$id)->get();
+		$res = ContentCommentReply::where('comment_id','=',$id)->orderBy('created_at','desc')->get();
 		$out = array();
 		foreach ($res as $r) { 
 			$user1 = User::where('rand_id','=',$r->user1_id)->first();
@@ -104,13 +108,17 @@ class ContentCommentController extends RestController {
 
 	public function anyReply()
 	{
+		if (!$this->checkCount(Request::input('userFromId')))
+			return $this->pack("已达到今日评论上限~~",0);
 		$reply = new ContentCommentReply; 
 		$reply->body = Request::input('body');
 		$reply->user1_id = Request::input('userFromId');
 		$reply->user2_id = Request::input('userToId');
 		$reply->comment_id = Request::input('id');
 		$reply->save();
-
+		
+		$this->addPoints(Request::input('userFromId'),1);
+		
 		return $this->pack("回复成功");
 	}
 
