@@ -116,14 +116,15 @@ class ContentCommentController extends RestController {
 
 	public function anyParised()
 	{
-		$com = ContentComment::where('id','=',Request::input('id'))->first();
-		$com->parised++;
-		$com->save();
-		
 		$userId = Request::input('randId');
 		$id = Request::input('id');
 		if (ContentCommentGood::where('user_id','=',$userId)->where('parent_id','=',$id)->count() > 0)
 			return $this->pack("已经赞过了",0);
+			
+		$com = ContentComment::where('id','=',Request::input('id'))->first();
+		$com->parised++;
+		$com->save();
+		
 		$good = new ContentCommentGood;
 		$good->user_id = $userId;
 		$good->parent_id = $id;

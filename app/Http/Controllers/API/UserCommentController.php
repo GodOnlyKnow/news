@@ -136,14 +136,15 @@ class UserCommentController extends RestController {
 
 	public function anyParised()
 	{
-		$com = UserComment::where('id','=',Request::input('id'))->first();
-		$com->parised++;
-		$com->save();
-		
 		$userId = Request::input('randId');
 		$id = Request::input('id');
 		if (UserCommentGood::where('user_id','=',$userId)->where('parent_id','=',$id)->count() > 0)
 			return $this->pack("已经赞过了",0);
+			
+		$com = UserComment::where('id','=',Request::input('id'))->first();
+		$com->parised++;
+		$com->save();
+		
 		$good = new UserCommentGood;
 		$good->user_id = $userId;
 		$good->parent_id = $id;

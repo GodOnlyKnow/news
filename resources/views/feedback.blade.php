@@ -8,6 +8,7 @@
 				<tr>
 					<th>图片</th>
 					<th>意见</th>
+					<th>联系方式</th>
 					<th>时间</th>
 					<th>操作</th>
 				</tr>
@@ -23,6 +24,7 @@
 							@endif
 						</td>
 						<td>{{ $f->body }}</td>
+						<td>{{ $f->concat }}</td>
 						<td>{{ $f->created_at }}</td>
 						<td>
 							<a href="{{ url('/feedback/delete') }}/{{ $f->id }}" class="btn btn-danger">删除</a>
