@@ -35,7 +35,10 @@ class UserCollectController extends RestController {
 			}
 		}
 
-		return $this->pack("获取成功",1,$out);
+		return $this->pack("获取成功",1,[
+			'result' => $out,
+			'last' => $cols->lastPage()
+		]);
 	}
 
 	public function anyCreate() 
