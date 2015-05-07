@@ -33,6 +33,13 @@
   <div class="row ads">
   </div>
   <hr>
+  <div class="lead-div">
+    <p class="lead">最新评论</p>
+  </div>
+  <div class="comments">
+   
+  </div>
+  <hr>
   <div class="row">
     <!-- <div class="close" onclick="javascript:$(this).parent().css('display','none');">
       <i class="glyphicon glyphicon-remove"></i>
@@ -50,6 +57,7 @@
 
 @section('scripts')
 <script type="text/javascript">
+  var cmt = $('.comments');
   $(function(){
     
     $.get("{{ url('/api/ads') }}",function(data){
@@ -69,6 +77,23 @@
       });
     } else {
     }
+    
+    $.get("/api/comment/get",{ id:{{ $content->id }},pageSize:3 },function(res){
+      var data = res.data.result;
+      console.log(res);
+      if (data.length == 0) {
+        cmt.html("<div class='panel panel-default'><div class='panel-body text-center'><a href='men:{{ $content->id }}'>没人评论，快来抢沙发吧</a></div></div>");
+      } else {
+        for (var d in data) {
+          cmt.append($("<div class='row'><div class='col-xs-2'><img class='img-responsive img-circle head-img' src='" +
+                        data[d].userImg + "'></div><div class='col-xs-9'><h4>" +
+                        data[d].userName + "</h4><h6 class='head-time'>"+
+                        getTimeDesci(data[d].createdAt) +"</h6><h5>" + 
+                        data[d].body + "</h5></div></div><hr class='hr'>"));
+        }
+        cmt.append($("<div class='panel panel-default'><div class='panel-body text-center'><a href='men:{{ $content->id }}'>我也要评论</a></div></div>"));
+      }
+    });
   });
 
   function is_weixin(){
@@ -79,5 +104,23 @@
       return false;
     }
   }
+  
+  function getTimeDesci(c)
+	{
+		var n = (new Date()).getTime();
+		var tmp = n - c * 1000;
+		if (tmp < 60000)
+			return parseInt(tmp / 1000) + " 刚刚";
+		else if (tmp < 3600000)
+			return parseInt(tmp / 60000) + "分钟前";
+		else if (tmp < 216000000)
+			return parseInt(tmp / 3600000) + "小时前";
+		else
+			return getLocalTime(c);
+	}
+  
+  function getLocalTime(nS) {     
+       return (new Date(parseInt(nS) * 1000)).Format("yyyy-MM-dd hh:mm");     
+  } 
 </script>
 @endsection
