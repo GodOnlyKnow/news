@@ -234,7 +234,7 @@ class ApiController extends Controller {
 		// }
 		if ($cnt < 2)
 			return response()->json([]);
-		$tmp = DB::select(" select * from ads where is_start = '0' order by rand() limit 1 ");
+		$tmp = DB::select(" select * from ads where is_start = '0' and type = '0' order by rand() limit 1 ");
 		return response()->json($tmp[0]);
 	}
 

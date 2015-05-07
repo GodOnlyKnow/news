@@ -256,5 +256,31 @@ animation: pacman-balls 1s .99s infinite linear;
 }
 
 .head-img {
-  min-width:70px;
+  width:60px;
+  height:60px;
+  min-height: 60px;
+  min-width: 60px;
+}
+
+.col-xs-2 {
+  min-width: 80px;
+}
+
+.hr {
+  margin-top:6px;
+  margin-bottom: 10px;
+}
+
+.head-time {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color:#009999;
+}
+
+h4 {
+  margin-bottom: 2px;
+}
+
+h5 {
+  margin-top:6px;
 }

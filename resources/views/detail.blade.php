@@ -60,13 +60,13 @@
         cmt.html("<div class='panel panel-default'><div class='panel-body text-center'><a href='men:{{ $content->id }}'>没人评论，快来抢沙发吧</a></div></div>");
       } else {
         for (var d in data) {
-          cmt.append($("<div class='row'><div class='col-xs-3'><img class='img-responsive img-circle head-img' src='" +
+          cmt.append($("<div class='row'><div class='col-xs-2'><img class='img-responsive img-circle head-img' src='" +
                         data[d].userImg + "'></div><div class='col-xs-9'><h4>" +
-                        data[d].userName + "</h4><h5>" + 
-                        data[d].body + "</h5><br><h6>" +
-                        getTimeDesci(data[d].createdAt) + "</h6></div></div><hr>"));
+                        data[d].userName + "</h4><h6 class='head-time'>"+
+                        getTimeDesci(data[d].createdAt) +"</h6><h5>" + 
+                        data[d].body + "</h5></div></div><hr class='hr'>"));
         }
-        cmt.append($("<div class='panel panel-default'><div class='panel-body text-center'><a href='men:{{ $content->id }}'>加载更多</a></div></div>"));
+        cmt.append($("<div class='panel panel-default'><div class='panel-body text-center'><a href='men:{{ $content->id }}'>我也要评论</a></div></div>"));
       }
     });
   });
@@ -76,17 +76,17 @@
 		var n = (new Date()).getTime();
 		var tmp = n - c * 1000;
 		if (tmp < 60000)
-			return parseInt(tmp / 1000) + "秒前发布";
+			return parseInt(tmp / 1000) + " 刚刚发布";
 		else if (tmp < 3600000)
 			return parseInt(tmp / 60000) + "分钟前发布";
 		else if (tmp < 216000000)
 			return parseInt(tmp / 3600000) + "小时前发布";
 		else
-			return "发布于：" + getLocalTime(c);
+			return "发布于: " + getLocalTime(c);
 	}
   
   function getLocalTime(nS) {     
-       return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");      
+       return (new Date(parseInt(nS) * 1000)).Format("yyyy-MM-dd hh:mm");     
   } 
 </script>
 @endsection
