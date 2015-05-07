@@ -11,7 +11,7 @@ class UserCollectController extends RestController {
 	{
 		$id = Request::input('randId');
 		$pageSize = Request::input('pageSize');
-		$cols = UserCollect::where('user_id','=',$id)->paginate($pageSize);
+		$cols = UserCollect::where('user_id','=',$id)->orderBy('created_at','desc')->paginate($pageSize);
 		$out = array();
 		foreach ($cols as $col) {
 			if ($col->type == 0) {
