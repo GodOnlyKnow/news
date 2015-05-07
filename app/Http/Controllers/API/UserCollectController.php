@@ -18,7 +18,7 @@ class UserCollectController extends RestController {
 				$con = Content::where('id','=',$col->parent_id)->first();
 				$out[] = [
 					'id' => $col->id,
-					'parent_id' => $con->id,
+					'parentId' => $con->id,
 					'title' => $con->title,
 					'img' => $this->getImg($con->img),
 					'type' => 0
@@ -27,7 +27,7 @@ class UserCollectController extends RestController {
 				$com = UserComment::where('id','=',$col->parent_id)->first();
 				$out[] = [
 					'id' => $col->id,
-					'parent_id' => $com->id,
+					'parentId' => $com->id,
 					'title' => $com->body,
 					'img' => $this->getImg($com->img),
 					'type' => 1
