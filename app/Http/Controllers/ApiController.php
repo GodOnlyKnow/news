@@ -225,7 +225,7 @@ class ApiController extends Controller {
 
 	public function getAds()
 	{
-		$cnt = Ad::count();
+		$cnt = Ad::where('type','=',0)->count();
 		// $n = rand(0,$cnt - 1);
 		// $tmp = Ad::skip($n)->take(1)->first();
 		// while ($tmp->is_start == 1) {

@@ -76,13 +76,13 @@
 		var n = (new Date()).getTime();
 		var tmp = n - c * 1000;
 		if (tmp < 60000)
-			return parseInt(tmp / 1000) + " 刚刚发布";
+			return parseInt(tmp / 1000) + " 刚刚";
 		else if (tmp < 3600000)
-			return parseInt(tmp / 60000) + "分钟前发布";
+			return parseInt(tmp / 60000) + "分钟前";
 		else if (tmp < 216000000)
-			return parseInt(tmp / 3600000) + "小时前发布";
+			return parseInt(tmp / 3600000) + "小时前";
 		else
-			return "发布于: " + getLocalTime(c);
+			return getLocalTime(c);
 	}
   
   function getLocalTime(nS) {     
