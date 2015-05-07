@@ -21,8 +21,10 @@ class ApiController extends Controller {
 		$page = Request::input('page');
 		$pageSize = Request::input('pageSize');
 		$count = ContentCommentReply::where('user2_id','=',$randId)->count() + UserCommentReply::where('user2_id','=',$randId)->count();
-		$res = DB::select("select * from (SELECT id,user1_id,user2_id,body,parent_id,created_at,updated_at,1 as type FROM news.user_comment_replys where user2_id = ? union select id,user1_id,user2_id,body,comment_id as parent_id,created_at,updated_at,0 from content_comment_replys where user2_id = ?) a order by a.created_at desc limit ?,?",[$randId,$randId,$page * $pageSize,$pageSize]);
+		$res = DB::select("select * from ((SELECT id,user1_id,user2_id,body,parent_id,created_at,updated_at,1 as type FROM news.user_comment_replys where user2_id = ?) union (select id,user1_id,user2_id,body,comment_id as parent_id,created_at,updated_at,0 as type from content_comment_replys where user2_id = ?)) a order by a.created_at desc limit ?,?",[$randId,$randId,($page - 1) * $pageSize,$pageSize]);
 		$cnt = intval($count / $pageSize);
+		if ($count % $pageSize != 0)
+			$cnt++;
 		$out = array();
 		foreach ($res as $r) {
 			$user1 = User::where('rand_id','=',$r->user1_id)->first();
