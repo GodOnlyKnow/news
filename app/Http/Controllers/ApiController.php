@@ -62,13 +62,21 @@ class ApiController extends Controller {
 	public function anyModify()
 	{
 		$user = User::where('rand_id','=',Request::input('randId'))->first();
-		if (Request::has('username'))
+		$is = false;
+		if (Request::has('username')) {
 			$user->username = Request::input('username');
-		if (Request::has('desc'))
+			$is = true;
+		}
+		if (Request::has('desc')) {
 			$user->desci = Request::input('desc');
-		if (Request::has('code'))
+			$is = true;
+		}
+		if (Request::has('code')) {
 			$user->img = "http://news.tuike520.com/" . $this->saveImg(Request::input('randId'),Request::input('code'));
-		$user->save();
+			$is = true;
+		}
+		if ($is)
+			$user->save();
 		
 		return $this->pack("更新成功",1,[
 			'username' => $user->username,
