@@ -23,8 +23,20 @@ class ApiController extends Controller {
 		$count = ContentCommentReply::where('user2_id','=',$randId)->count() + UserCommentReply::where('user2_id','=',$randId)->count();
 		$res = DB::select("select * from (SELECT id,user1_id,user2_id,body,parent_id,created_at,updated_at,1 as type FROM news.user_comment_replys where user2_id = ? union select id,user1_id,user2_id,body,comment_id as parent_id,created_at,updated_at,0 from content_comment_replys where user2_id = ?) a order by a.created_at desc limit ?,?",[$randId,$randId,$page * $pageSize,$pageSize]);
 		$cnt = intval($count / $pageSize);
+		$out = array();
+		foreach ($res as $r) {
+			$user1 = User::where('rand_id','=',$r->user1_id)->first();
+			$out[] = [
+				'userFromImg' => $user1->img,
+				'userFromName' => $user1->username,
+				'body' => $r->body,
+				'createdAt' => strtotime($r->created_at),
+				'parentId' => $r->parent_id,
+				'type' => $r->type
+			];
+		}
 		return $this->pack("获取成功",1,[
-			'result' => $res,
+			'result' => $out,
 			'last' => $cnt
 		]);
 	}
