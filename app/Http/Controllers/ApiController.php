@@ -28,6 +28,8 @@ class ApiController extends Controller {
 		$out = array();
 		foreach ($res as $r) {
 			$user1 = User::where('rand_id','=',$r->user1_id)->first();
+			if ($r->type == 0)
+				$r->parent_id = ContentComment::where('id','=',$r->parent_id)->first()->content_id;
 			$out[] = [
 				'userFromImg' => $user1->img,
 				'userFromName' => $user1->username,
