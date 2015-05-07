@@ -5,6 +5,7 @@ use App\User;
 use App\UserComment;
 use App\UserCommentReply;
 use App\UserCommentGood;
+use App\UserCollect;
 
 class UserCommentController extends RestController {
 
@@ -90,6 +91,7 @@ class UserCommentController extends RestController {
 		$id = Request::input('id');
 		$type = Request::input('type');
 		if ($type == 0) {
+			UserCollect::where('parent_id','=',$id)->where('type','=',1)->delete();
 			UserCommentReply::where('parent_id','=',$id)->delete();
 			UserComment::where('id','=',$id)->delete();
 		} else {

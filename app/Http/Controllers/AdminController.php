@@ -2,6 +2,9 @@
 
 use App\ContentType;
 use App\Content;
+use App\ContentComment;
+use App\ContentCommentReply;
+use App\UserCollect;
 use Request;
 
 class AdminController extends Controller {
@@ -57,6 +60,8 @@ class AdminController extends Controller {
 	public function anyDelcontent()
 	{
 		$id = Request::input('id');
+		ContentComment::where('content_id','=',$id)->delete();
+		UserCollect::where('parent_id','=',$id)->where('type','=',0)->delete();
 		Content::find($id)->delete();
 		return 'ok';
 	}
