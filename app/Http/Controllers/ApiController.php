@@ -67,7 +67,7 @@ class ApiController extends Controller {
 		if (Request::has('desc'))
 			$user->desci = Request::input('desc');
 		if (Request::has('code'))
-			$user->img = $this->saveImg(Request::input('randId'),Request::input('code'));
+			$user->img = "http://news.tuike520.com/" . $this->saveImg(Request::input('randId'),Request::input('code'));
 		$user->save();
 		
 		return $this->pack("更新成功",1,[
