@@ -14,7 +14,53 @@ use App\UserCommentReply;
 use Request,DB,Hash;
 
 class ApiController extends Controller {
-
+	
+	public function anyUserreply()
+	{
+		$randId = Request::input('randId');
+		$page = Request::input('page');
+		$pageSize = Request::input('pageSize');
+		$count = ContentCommentReply::where('user2_id','=',$randId)->count() + UserCommentReply::where('user2_id','=',$randId)->count();
+		$res = DB::select("select * from (SELECT id,user1_id,user2_id,body,parent_id,created_at,updated_at,1 as type FROM news.user_comment_replys where user2_id = ? union select id,user1_id,user2_id,body,comment_id as parent_id,created_at,updated_at,0 from content_comment_replys where user2_id = ?) a order by a.created_at desc limit ?,?",[$randId,$randId,$page * $pageSize,$pageSize]);
+		$cnt = intval($count / $pageSize);
+		return $this->pack("获取成功",1,[
+			'result' => $res,
+			'last' => $cnt
+		]);
+	}
+	
+	public function anyProfile()
+	{
+		$randId = Request::input('randId');
+		$user = User::where('rand_id','=',$randId)->first();
+		return $this->pack("获取成功",1,[
+			'username' => $user->username,
+			'phone' => $user->phone,
+			'img' => $user->img,
+			'desc' => $user->desci,
+			'randId' => $user->rand_id,
+			'groupName' => UserGroup::where('id','=',$user->group_id)->select('name')->first()->name
+		]);
+	}
+	
+	public function anyModify()
+	{
+		$user = User::where('rand_id','=',Request::input('randId'))->first();
+		$user->username = Request::input('username');
+		$user->desci = Request::input('desc');
+		$user->img = $this->saveImg(Request::input('randId'),Request::input('code'));
+		$user->save();
+		
+		return $this->pack("更新成功",1,[
+			'username' => $user->username,
+			'phone' => $user->phone,
+			'img' => $user->img,
+			'desc' => $user->desci,
+			'randId' => $user->rand_id,
+			'groupName' => UserGroup::where('id','=',$user->group_id)->select('name')->first()->name
+		]);
+	}
+	
 	// 注册
 	public function anyRegist()
 	{
@@ -185,7 +231,27 @@ class ApiController extends Controller {
 			$id = $this->randId();
 		return $id;
 	}
+	
+	private function saveImg($randId,$code)
+	{
+		if ($code == null || strlen($code) < 1) return null;
+		
+		$split = explode(',',$code);
+		$data = $split[1];
+		$head = explode(':',$split[0]);
+		$main = explode(';',$head[1]);
+		$type = explode('/',$main[0]);
+		$tmp = base64_decode($data);
+		$fileName = md5(time() . mt_rand(0,1000)) . '.' . $type[1];
+		$base = 'imgs/users/' . $randId;
+		if (!is_dir(public_path() . '/' . $base)) {
+			mkdir(public_path() . '/' . $base);
+		}
+		file_put_contents(public_path() . '/' . $base . '/' . $fileName, $tmp);
 
+		return $base . '/' . $fileName;
+	}
+	
 	private function getImg($url)
 	{
 		return "http://news.tuike520.com/phpThumb/phpThumb.php?src=/$url&w=120&q=30";

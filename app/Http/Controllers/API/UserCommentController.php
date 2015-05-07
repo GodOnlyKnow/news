@@ -177,8 +177,6 @@ class UserCommentController extends RestController {
 		$id = Request::input('id');
 		$col = UserComment::join('users','users.rand_id','=','user_comments.user_id')
 							->where('user_comments.id','=',$id)
-							->orderBy('user_comments.is_top','desc')
-							->orderBy('user_comments.created_at','desc')
 							->select(array(
 								'user_comments.id as id',
 								'users.username as userName',
