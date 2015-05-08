@@ -39,7 +39,7 @@
   @foreach ($contents as $cs)
   	<?php $cnt++;$tmps = ($cnt / 4) - 1; ?>
 	@if ($cnt % 4 == 0 && count($ads) >= $cnt / 4)
-		<div class="col-xs-8 col-sm-4" href="{{ $ads[$tmps]['link'] }}" >
+		<div class="col-xs-8 col-sm-4" onclick='goLink("{{ $ads[$tmps]['link'] }}")' >
   			<a class="title">{{ $ads[$tmps]['name'] }}</a>
   		</div>
 		<div class="col-xs-4 col-sm-2">
@@ -111,6 +111,11 @@
 			}
 		});
 
+	}
+	
+	function goLink(s)
+	{
+		window.location.href = s;
 	}
 
 	function getContent(p)
