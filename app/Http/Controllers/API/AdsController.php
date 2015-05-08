@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\API;
 
 use App\Ad;
+use App\Request;
 
 class AdsController extends RestController {
 	
