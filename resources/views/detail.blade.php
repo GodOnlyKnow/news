@@ -48,7 +48,7 @@
     var cmt = $('.comments');
     $.get("{{ url('/api/ads') }}",function(data){
       var str = "<div class='col-md-12 col-xs-12'><a href='" +
-              data.link + "'><img class='img-responsive' src='/phpThumb/phpThumb.php?src=/" +
+              data.link + "'><img class='img-responsive' src='http://news.tuike520.com/phpThumb/phpThumb.php?src=/" +
               data.img + "&w=800&q=80' ></a></div>";
       $('.ads').html(str);
     })

@@ -22,7 +22,7 @@
 					<div @if ($isoo == 0) class="item active" @else class="item" @endif>
 					   <?php $isoo = 1; ?>
 						<a href="{{ url('home/detail') }}/{{ $css['id'] }}">
-							<img src="{{ asset('/') }}/{{ $css['img'] }}" />
+							<img src="http://news.tuike520.com/{{ $css['img'] }}" />
 						</a>
 						<div class="carousel-caption">
 							<h4>{{ $css['title'] }}</h4>
@@ -41,7 +41,7 @@
 	@if ($cnt % 4 == 0 && count($ads) >= $cnt / 4)
 		<div class="col-xs-12 col-sm-6" onclick='goLink("{{ $ads[$tmps]['link'] }}")' >
   			<a class="title">{{ $ads[$tmps]['name'] }}</a>
-			<img class="img-responsive" src="/phpThumb/phpThumb.php?src=/{{ $ads[$tmps]['img'] }}&w=120&q=30" alt="" />
+			<img class="img-responsive" src="http://news.tuike520.com/phpThumb/phpThumb.php?src=/{{ $ads[$tmps]['img'] }}&w=120&q=30" alt="" />
   		</div>
 	@endif
   	@if ($cs['img'] != null || $cs['img'] != "")
@@ -49,7 +49,7 @@
   		<a class="title">{{ $cs['title'] }}</a>
   		<p class="time">{{ $cs['times'] }}</p>
   		</div><div class="col-xs-4 col-sm-2">
-  		<img class="img-responsive" src="/phpThumb/phpThumb.php?src=/{{ $cs['img'] }}&w=120&q=30" alt="" /></div>
+  		<img class="img-responsive" src="http://news.tuike520.com/phpThumb/phpThumb.php?src=/{{ $cs['img'] }}&w=120&q=30" alt="" /></div>
   	@else
   		<div class="col-xs-12 col-sm-6" onclick="goTo({{ $cs['id'] }})">
   		<a class="title">{{ $cs['title'] }}</a>
@@ -126,7 +126,7 @@
 				getTimeDesci(data[d].times);
 				if (data[d].img != null && data[d].img != "") {
 					str = '<div class="col-xs-8 col-sm-4" onclick="goTo('+ data[d].id +')"><a class="title">'+
-					data[d].title + '</a><p class="time">'+ getTimeDesci(data[d].times) +'</p></div><div class="col-xs-4 col-sm-2"><img class="img-responsive" src="/phpThumb/phpThumb.php?src=/'+
+					data[d].title + '</a><p class="time">'+ getTimeDesci(data[d].times) +'</p></div><div class="col-xs-4 col-sm-2"><img class="img-responsive" src="http://news.tuike520.com/phpThumb/phpThumb.php?src=/'+
 					data[d].img +'&w=120&q=30" alt="" /></div>';
 					$('.contents').append($(str));
 				} else {
@@ -151,12 +151,12 @@
         if (d == 0){
           strLi += '<li class="active" data-slide-to="' + d + '" data-target="#carousel-370612"></li>';
           strItem += '<div class="item active"><a href="{{ url('home/detail') }}/'+
-									data[d].id +'"><img src="{{ asset('/') }}' + data[d].img + '" /></a><div class="carousel-caption"><h4>' + data[d].title + "</h4></div></div>";
+									data[d].id +'"><img src="http://news.tuike520.com/' + data[d].img + '" /></a><div class="carousel-caption"><h4>' + data[d].title + "</h4></div></div>";
         }
         else{
           strLi += '<li data-slide-to="' + d + '" data-target="#carousel-370612"></li>';
           strItem += '<div class="item"><a href="{{ url('home/detail') }}/'+
-									data[d].id +'"><img src="{{ asset('/') }}' + data[d].img + '" /><div class="carousel-caption"><h4>' + data[d].title + "</h4></div></div>";
+									data[d].id +'"><img src="http://news.tuike520.com/' + data[d].img + '" /><div class="carousel-caption"><h4>' + data[d].title + "</h4></div></div>";
         }
       }
       $('.carousel-indicators').html(strLi);

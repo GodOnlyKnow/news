@@ -62,7 +62,7 @@
     
     $.get("{{ url('/api/ads') }}",function(data){
       var str = "<div class='col-md-12 col-xs-12'><a href='" +
-              data.link + "'><img class='img-responsive' src='{{ asset('/') }}" +
+              data.link + "'><img class='img-responsive' src='http://news.tuike520.com/" +
               data.img + "' ></a></div>";
       $('.ads').html(str);
     })

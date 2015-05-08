@@ -5,7 +5,7 @@ $(function(){
 		//console.log($(this).attr('src'));
 		var src = $(this).attr('src').replace(pre1,'');
 		src = src.replace(pre2,'');
-		$(this).attr('src', '/phpThumb/phpThumb.php?src=' + src + '&w=800&q=80');
+		$(this).attr('src', 'http://news.tuike520.com/phpThumb/phpThumb.php?src=' + src + '&w=800&q=80');
 		
 	});
 });
