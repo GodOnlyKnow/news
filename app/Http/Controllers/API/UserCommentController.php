@@ -66,7 +66,16 @@ class UserCommentController extends RestController {
 			'last' => $cols->lastPage()
 		]);
 	}
-
+	
+	public function anyTop()
+	{
+		$cmt = UserComment::where('id','=',Request::input('id'))->first();
+		$cmt->is_top = $cmt->is_top == 0 ? 1 : 0;
+		$cmt->save();
+		
+		return 'done';
+	}
+	
 	public function anyCreate() 
 	{
 		$id = Request::input('randId');

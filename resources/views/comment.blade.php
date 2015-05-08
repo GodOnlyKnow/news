@@ -9,7 +9,7 @@
 					<th>用户名</th>
 					<th>内容</th>
 					<th>发布时间</th>
-					<th>操作</th>
+					<th colspan="3">操作</th>
 				</tr>
 			</thead>
 			<tbody class="table-body">
@@ -70,8 +70,15 @@
 						data[d].userName + '</td><td>' +
 						data[d].body + '</td><td>' +
 						getLocalTime(data[d].createdAt) + '</td><td><button class="btn btn-danger" onclick="del(this)" data-href="/api/usercomment/delete?id=' +
-						data[d].id + '&type=0"><i class="glyphicon glyphicon-remove-sign"></i></button><button class="btn btn-success" onclick="detail(' +
-						data[d].id +')"><i class="glyphicon glyphicon-th-list"></i></button>'
+						data[d].id + '&type=0"><i class="glyphicon glyphicon-remove-sign"></i></button></td><td><button class="btn btn-success" onclick="detail(' +
+						data[d].id +')"><i class="glyphicon glyphicon-th-list"></i></button></td>';
+				if (data[d].isTop == 1) {
+					str += '<td><button class="btn btn-info settop" onclick="setTop(' +
+						data[d].id + ')">顶</button></td>';
+				} else {
+					str += '<td><button class="btn btn-default settop" onclick="setTop(' +
+						data[d].id + ')">顶</button></td>';
+				}
 				dBody.append($(str));
 			}
 			dBody.children('p').remove();
@@ -102,6 +109,14 @@
 	{
 		$.post($(t).data('href'));
 		$(t).parent().parent().remove();
+	}
+	
+	function setTop(i)
+	{
+		$('.settop').html('<i class="glyphicon glyphicon-refresh"></i>');
+		$.post("{{ url('/api/usercomment/top') }}",{ id:i },function(){
+			getComment();
+		});
 	}
 	
 	function detail(i)

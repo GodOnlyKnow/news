@@ -51,6 +51,7 @@
 						<option value="2">页面广告-撸吧</option>
 						<option value="3">页面广告-看吧</option>
 						<option value="4">页面广告-笑吧</option>
+						<option value="99">页面广告-侃吧</option>
 					</select>
 				</div>
 			</div>
@@ -235,8 +236,10 @@
 						撸吧
 					@elseif ($ad->type == 3)
 						看吧
-					@else
+					@elseif ($ad->type == 4)
 						笑吧
+					@else
+						侃吧
 					@endif
 				</div>
 		        <div class="col-md-4">

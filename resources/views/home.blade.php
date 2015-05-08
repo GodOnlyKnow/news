@@ -39,11 +39,10 @@
   @foreach ($contents as $cs)
   	<?php $cnt++;$tmps = ($cnt / 4) - 1; ?>
 	@if ($cnt % 4 == 0 && count($ads) >= $cnt / 4)
-		<div class="col-xs-8 col-sm-4" onclick='goLink("{{ $ads[$tmps]['link'] }}")' >
+		<div class="col-xs-12 col-sm-6" onclick='goLink("{{ $ads[$tmps]['link'] }}")' >
   			<a class="title">{{ $ads[$tmps]['name'] }}</a>
+			<img class="img-responsive" src="/phpThumb/phpThumb.php?src=/{{ $ads[$tmps]['img'] }}&w=120&q=30" alt="" />
   		</div>
-		<div class="col-xs-4 col-sm-2">
-  		<img class="img-responsive" src="/phpThumb/phpThumb.php?src=/{{ $ads[$tmps]['img'] }}&w=120&q=30" alt="" /></div>
 	@endif
   	@if ($cs['img'] != null || $cs['img'] != "")
   		<div class="col-xs-8 col-sm-4" onclick="goTo({{ $cs['id'] }})">

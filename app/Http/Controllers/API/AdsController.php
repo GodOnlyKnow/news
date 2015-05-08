@@ -6,7 +6,7 @@ class AdsController extends RestController {
 	
 	public function anyGet()
 	{
-		$ads = Ad::where('type','=',1)->orderBy('created_at','desc')->get();
+		$ads = Ad::where('type','=',Request::input('type'))->orderBy('created_at','desc')->get();
 		$out = array();
 		foreach ($ads as $ad) {
 			$out[] = [
