@@ -14,7 +14,8 @@ class AdsController extends Controller {
 	{
 		$ads = Ad::orderBy('created_at','desc')->where('type','=',0)->get();
 		$dds = Ad::orderBy('created_at','desc')->where('type','=',1)->get();
-		return view('ads')->withAds($ads)->withDds($dds);
+		$aas = Ad::orderBy('created_at','desc')->where('type','>',1)->get();
+		return view('ads')->withAds($ads)->withDds($dds)->withAas($aas);
 	}
 
 	public function postCreate()

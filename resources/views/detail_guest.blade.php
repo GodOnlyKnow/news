@@ -82,7 +82,7 @@
       var data = res.data.result;
       console.log(res);
       if (data.length == 0) {
-        cmt.html("<div class='panel panel-default'><div class='panel-body text-center'><a href='men:{{ $content->id }}'>没人评论，快来抢沙发吧</a></div></div>");
+        
       } else {
         for (var d in data) {
           cmt.append($("<div class='row'><div class='col-xs-2'><img class='img-responsive img-circle head-img' src='" +
@@ -91,7 +91,6 @@
                         getTimeDesci(data[d].createdAt) +"</h6><h5>" + 
                         data[d].body + "</h5></div></div><hr class='hr'>"));
         }
-        cmt.append($("<div class='panel panel-default'><div class='panel-body text-center'><a href='men:{{ $content->id }}'>我也要评论</a></div></div>"));
       }
     });
   });

@@ -2,6 +2,7 @@
 
 use App\Content;
 use App\ContentType;
+use App\Ad;
 use Request;
 
 class HomeController extends Controller {
@@ -40,6 +41,7 @@ class HomeController extends Controller {
 		date_default_timezone_set("PRC");
 		$out = array();
 		$now = time();
+		$ads = Ad::where('type','=',$type + 1)->orderBy('created_at','desc')->get();
 		foreach ($contents as $k) {
 			$tm = strtotime(strval($k->created_at));
 			$tmp = $now - $tm;
@@ -59,7 +61,7 @@ class HomeController extends Controller {
 				'times' => $ts
 			);
 		}
-		return view('home')->withType($t)->withFcnt(count($outContents))->withCnt($cnt)->withFocus($outContents)->withContents($out);
+		return view('home')->withType($t)->withFcnt(count($outContents))->withCnt($cnt)->withFocus($outContents)->withContents($out)->withAds($ads);
 	}
 
 	public function getNews($type = 1)
