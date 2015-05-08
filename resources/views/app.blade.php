@@ -36,6 +36,7 @@
 					<li><a href="{{ url('/comment/index') }}">侃吧管理</a></li>
 					<li><a href="{{ url('/feedback/index') }}">反馈意见</a></li>
 					<li><a href="{{ url('/app/index') }}">APP设置</a></li>
+					<li><a href="{{ url('/stat/index') }}">数据统计</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())

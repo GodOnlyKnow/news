@@ -61,6 +61,7 @@ class HomeController extends Controller {
 				'times' => $ts
 			);
 		}
+		$this->pv();
 		return view('home')->withType($t)->withFcnt(count($outContents))->withCnt($cnt)->withFocus($outContents)->withContents($out)->withAds($ads);
 	}
 
@@ -74,9 +75,10 @@ class HomeController extends Controller {
 
 	public function getDetail($id)
 	{
-		$d = Content::find($id);
+		$d = Content::lockForUpdate()->find($id);
 		$d->visited += 1;
 		$d->save();
+		$this->pv();
 		if (Request::has('guest'))
 			return view('detail_guest')->withContent($d);
 		return view('detail')->withContent($d);

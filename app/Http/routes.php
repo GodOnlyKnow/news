@@ -37,6 +37,7 @@ Route::controllers([
 	'app' => 'AppController',
 	'comment' => 'CommentController',
 	'feedback' => 'FeedbackController',
+	'stat' => 'StatController',
 ],[
 	'middleware' => 'csrf'
 ]);
