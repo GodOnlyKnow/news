@@ -13,7 +13,7 @@ abstract class Controller extends BaseController {
 	{
 		$str = intval(file_get_contents(public_path() . '/logs/pv.txt'));
         $str++;
-        if ($str >= 10) {
+        if ($str >= 300) {
             $now = date("Y-m-d",strtotime('now'));
             $pv = PageView::where('created_at','like',"%$now%")->first();
             if ($pv == null)
