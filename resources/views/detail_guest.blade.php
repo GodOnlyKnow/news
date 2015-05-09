@@ -45,7 +45,7 @@
       <i class="glyphicon glyphicon-remove"></i>
     </div> -->
     <a id="wx" href="http://www.tuike520.com/download" onclick="click()">
-      <img src="{{ asset('/imgs/ads/download.png') }}" class="img-responsive">
+      <img src="http://news.tuike520.com/imgs/ads/download.png" class="img-responsive">
     </a>
   </div>
 </div>
