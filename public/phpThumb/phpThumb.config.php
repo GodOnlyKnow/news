@@ -172,7 +172,7 @@ $PHPTHUMB_CONFIG['nooffsitelink_valid_domains'] = array(@$_SERVER['HTTP_HOST'],'
 $PHPTHUMB_CONFIG['nooffsitelink_require_refer'] = false;                                      // If false will allow standalone calls to phpThumb(). If true then only requests with a $_SERVER['HTTP_REFERER'] value in 'nooffsitelink_valid_domains' are allowed.
 $PHPTHUMB_CONFIG['nooffsitelink_erase_image']   = false;                                      // if true thumbnail is covered up with $PHPTHUMB_CONFIG['nohotlink_fill_color'] before text is applied, if false text is written over top of thumbnail
 $PHPTHUMB_CONFIG['nooffsitelink_watermark_src'] = '/demo/images/watermark.png';                // webroot-relative image to overlay on hotlinked images
-$PHPTHUMB_CONFIG['nooffsitelink_text_message']  = 'Image taken from '.@$_SERVER['HTTP_HOST']; // text of error message (used if [nooffsitelink_watermark_src] is not a valid image)
+$PHPTHUMB_CONFIG['nooffsitelink_text_message']  = ''; // text of error message (used if [nooffsitelink_watermark_src] is not a valid image)
 
 
 // * Border & Background default colors
