@@ -18,7 +18,7 @@
 					<tr>
 						<td>
 							@if ($f->img != null && strlen($f->img) > 1)
-								<img src="/{{ $f->img }}" class="img-responsive">
+								<img src="/{{ $f->img }}" style="max-width:120px;" class="img-responsive">
 							@else
 								无图片
 							@endif
