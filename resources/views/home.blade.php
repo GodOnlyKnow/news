@@ -41,7 +41,7 @@
 	@if ($cnt % 4 == 0 && count($ads) >= $cnt / 4)
 		<div class="col-xs-12 col-sm-6" onclick='goLink("{{ $ads[$tmps]['link'] }}")' >
   			<a class="title">{{ $ads[$tmps]['name'] }}</a>
-			<img class="img-responsive" src="http://news.tuike520.com/phpThumb/phpThumb.php?src=/{{ $ads[$tmps]['img'] }}&w=120&q=30" alt="" />
+			<img class="img-responsive" src="http://news.tuike520.com/phpThumb/phpThumb.php?src=/{{ $ads[$tmps]['img'] }}&w=120&q=30" />
   		</div>
 	@endif
   	@if ($cs['img'] != null || $cs['img'] != "")
@@ -49,7 +49,7 @@
   		<a class="title">{{ $cs['title'] }}</a>
   		<p class="time">{{ $cs['times'] }}</p>
   		</div><div class="col-xs-4 col-sm-2">
-  		<img class="img-responsive" src="http://news.tuike520.com/phpThumb/phpThumb.php?src=/{{ $cs['img'] }}&w=120&q=30" alt="" /></div>
+  		<img class="img-responsive" src="http://news.tuike520.com/phpThumb/phpThumb.php?src=/{{ $cs['img'] }}&w=120&q=30" /></div>
   	@else
   		<div class="col-xs-12 col-sm-6" onclick="goTo({{ $cs['id'] }})">
   		<a class="title">{{ $cs['title'] }}</a>
