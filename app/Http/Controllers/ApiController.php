@@ -10,6 +10,7 @@ use App\ContentCommentReply;
 use App\Feedback;
 use App\UserComment;
 use App\UserCommentReply;
+use App\PageView;
 
 use Request,DB,Hash;
 
@@ -49,7 +50,16 @@ class ApiController extends Controller {
 	{
 		$randId = Request::input('randId');
 		$user = User::where('rand_id','=',$randId)->first();
-		$user->login_at = strtotime('now');
+		$ts = substr($user->login_at,0,10);
+		$now = date("Y-m-d",strtotime('now'));
+		if ($ts != $now) {
+			$pv = PageView::where('created_at','like',"%$now%")->first();
+			if ($pv == null)
+				$pv = new PageView;
+			$pv->cnts++;
+			$pv->save();
+		}
+		$user->login_at = date("Y-m-d H:m:s",strtotime('now'));
 		$user->save();
 		return $this->pack("获取成功",1,[
 			'username' => $user->username,

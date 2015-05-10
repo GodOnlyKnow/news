@@ -14,11 +14,14 @@ class StatController extends Controller {
 			$now = date("Y-m-d",strtotime("-$i days"));
 			$ts[] = $now;
 			$tmp = PageView::where('created_at','like',"%$now%")->first();
-			if ($tmp == null)
+			if ($tmp == null) {
 				$pv[] = 0;
-			else
+				$av[] = 0;
+			}
+			else {
 				$pv[] = $tmp->count;
-			$av[] = User::where('login_at','like',"%$now%")->count();
+				$av[] = $tmp->cnts;
+			}
 		}
 		return view('stats')->withPvs($pv)->withAvs($av)->withTs($ts);
 	}
