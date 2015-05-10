@@ -50,6 +50,7 @@ class ApiController extends Controller {
 		$randId = Request::input('randId');
 		$user = User::where('rand_id','=',$randId)->first();
 		$user->login_at = strtotime('now');
+		$user->save();
 		return $this->pack("获取成功",1,[
 			'username' => $user->username,
 			'phone' => $user->phone,
