@@ -38,6 +38,7 @@ Route::controllers([
 	'comment' => 'CommentController',
 	'feedback' => 'FeedbackController',
 	'stat' => 'StatController',
+	'user' => 'UserController',
 ],[
 	'middleware' => 'csrf'
 ]);

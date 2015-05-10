@@ -30,6 +30,7 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
+					<li><a href="{{ url('/user/index') }}">用户管理</a></li>
 					<li><a href="{{ url('/admin') }}">新闻管理</a></li>
 					<li><a href="{{ url('/ads/index') }}">广告管理</a></li>
 					<li><a href="{{ url('/message/index') }}">消息中心</a></li>

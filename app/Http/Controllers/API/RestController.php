@@ -77,6 +77,12 @@ abstract class RestController extends BaseController {
 			return false;
 		return true;
 	}
+	
+	protected function isLock($id)
+	{
+		$user = User::where('rand_id','=',$id)->first();
+		return $user->is_lock == 1;
+	}
 }
 
 ?>

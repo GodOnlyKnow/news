@@ -50,6 +50,8 @@ class ContentCommentController extends RestController {
 	public function anyCreate() 
 	{
 		$id = Request::input('randId');
+		if ($this->isLock($id))
+			return $this->pack("你被管理员禁言了...T_T",0);
 		if (!$this->checkCount($id))
 			return $this->pack("已达到今日评论上限~~",0);
 		$contentId = Request::input('contentId');
@@ -110,6 +112,8 @@ class ContentCommentController extends RestController {
 
 	public function anyReply()
 	{
+		if ($this->isLock(Request::input('userFromId')))
+			return $this->pack("你被管理员禁言了...T_T",0);
 		if (!$this->checkCount(Request::input('userFromId')))
 			return $this->pack("已达到今日评论上限~~",0);
 		$reply = new ContentCommentReply; 
